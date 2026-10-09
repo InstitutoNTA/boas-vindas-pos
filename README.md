@@ -12,6 +12,7 @@ Ferramenta do time de CS para enviar a mensagem de onboarding aos alunos novos d
 | Defesa Cibernética com IA Generativa Aplicada | Não |
 | Arquitetura Avançada de Cloud com Azure | Não |
 | Inteligência Artificial Aplicada a Negócios | Sim |
+| MBA em Inteligência Artificial Aplicada ao Direito | Sim |
 
 ## Como usar
 
@@ -28,4 +29,4 @@ Todo o conteúdo fica no arquivo `index.html`, na lista `COURSES`. Para trocar u
 
 1. Abra `index.html` aqui no GitHub e clique no lápis (Editar).
 2. Procure o link antigo (Ctrl + F) e troque pelo novo. Ele aparece duas vezes por curso: na lista `links` e no texto da mensagem.
-3. Clique em **Commit changes**. O site atualiza em 1 a 2 minutos.
+3. Clique em **Commit changes** (ou **Confirmar alterações**, se o GitHub estiver em português). O site atualiza em 1 a 2 minutos.
