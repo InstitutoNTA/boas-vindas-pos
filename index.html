@@ -11,7 +11,7 @@
 :root{
   --bg:#eef1f4; --surface:#ffffff; --surface-2:#f6f8fa; --ink:#14212e; --muted:#5b6876; --line:#d8dee5;
   --accent:#1f5f8b; --accent-ink:#ffffff; --chat:#e3efe6; --chat-line:#c7dccd; --warn:#a4570a; --ok:#1d7a46;
-  --c1:#2a6fdb; --c2:#b0372e; --c3:#0e7f8c; --c4:#7a4fc2;
+  --c1:#2a6fdb; --c2:#b0372e; --c3:#0e7f8c; --c4:#7a4fc2; --c5:#a8701a;
   --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --body:"Figtree", "Segoe UI", system-ui, sans-serif;
   --mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
@@ -19,11 +19,11 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0f161d; --surface:#17212b; --surface-2:#1d2935; --ink:#e6edf3; --muted:#9aa8b6; --line:#2b3a48;
   --accent:#6fb0e0; --accent-ink:#0b1620; --chat:#1d3326; --chat-line:#2c4a37; --warn:#e6a35a; --ok:#5fcf8e;
-  --c1:#7aa7ff; --c2:#f08479; --c3:#4fc6d3; --c4:#b79bf0; color-scheme:dark}}
+  --c1:#7aa7ff; --c2:#f08479; --c3:#4fc6d3; --c4:#b79bf0; --c5:#e0b05a; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0f161d; --surface:#17212b; --surface-2:#1d2935; --ink:#e6edf3; --muted:#9aa8b6; --line:#2b3a48;
   --accent:#6fb0e0; --accent-ink:#0b1620; --chat:#1d3326; --chat-line:#2c4a37; --warn:#e6a35a; --ok:#5fcf8e;
-  --c1:#7aa7ff; --c2:#f08479; --c3:#4fc6d3; --c4:#b79bf0; color-scheme:dark}
+  --c1:#7aa7ff; --c2:#f08479; --c3:#4fc6d3; --c4:#b79bf0; --c5:#e0b05a; color-scheme:dark}
 
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
@@ -33,8 +33,9 @@ h1{font-family:var(--display);font-size:clamp(1.6rem,3.2vw,2.2rem);line-height:1
 .sub{color:var(--muted);margin:6px 0 0;max-width:62ch}
 .clock{font-family:var(--mono);font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
 
-.courses{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-@media (max-width:860px){.courses{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.courses{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+@media (max-width:1000px){.courses{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:600px){.courses{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .course{--c:var(--c1);text-align:left;cursor:pointer;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:4px;font:inherit;transition:border-color .15s, box-shadow .15s}
 .course:hover{border-color:var(--c)}
 .course:focus-visible{outline:2px solid var(--c);outline-offset:2px}
@@ -254,7 +255,37 @@ ${PLATAFORMA}
 *PASSO 4 - Envio dos Documentos*
 ${DOCS("Inteligência Artificial Aplicada a Negócios")}
 
-Me avise assim que concluir todas essas etapas, para que eu possa liberar o teu acesso a plataforma dos workshops, que vão complementar os teus estudos.`}
+Me avise assim que concluir todas essas etapas, para que eu possa liberar o teu acesso a plataforma dos workshops, que vão complementar os teus estudos.`},
+  { id:"direito", tag:"MBA · Direito", nome:"MBA em IA Aplicada ao Direito", color:"--c5", workshops:true,
+    links:[
+      {t:"Formulário de Inscrição", u:"https://forms.office.com/r/tg3tjNf3pk"},
+      {t:"Comunidade da Turma", u:"https://chat.whatsapp.com/IgjXKtR64XN7Lu7Q3tOfY8"},
+      {t:"Plataforma (AVA/COSMOS)", u:PLATAFORMA}],
+    msg:(s,n)=>`${s} ${n}, como você está?
+
+Me chamo Junior, sou do time de suporte do curso de MBA em Inteligência Artificial Aplicada ao Direito! E serei seu ponto de contato durante todo o processo de onboarding.
+
+Estou aqui para garantir que você tenha a melhor experiência possível.
+
+Para que você tenha acesso completo ao curso e a todos os seus benefícios, preciso que você complete 4 passos rápidos logo abaixo. Todo o processo é simples!
+
+*PASSO 1 - Formulário de Inscrição*
+https://forms.office.com/r/tg3tjNf3pk
+
+*PASSO 2 - Comunidade Oficial da Turma*
+https://chat.whatsapp.com/IgjXKtR64XN7Lu7Q3tOfY8
+
+*PASSO 3 - Plataforma de Estudos (AVA/COSMOS)*
+${PLATAFORMA}
+
+*PASSO 4 - Envio dos Documentos*
+Para efetivar sua matrícula, o próximo passo é enviar sua documentação.
+Na página inicial da plataforma, acesse o MBA em Inteligência Artificial Aplicada ao Direito → Acessar o Curso → Enviar Documentos.
+Enquanto os documentos estiverem em análise, pode aparecer uma janela informando que há documentos pendentes.
+Basta fechá-la e seguir normalmente, pois você pode acessar a plataforma e assistir às aulas durante todo o período de análise.
+Assim que a análise da documentação for concluída e os documentos forem aprovados, essa mensagem de documentos pendentes deixará de aparecer automaticamente.
+
+Me avise assim que concluir as etapas, para que eu possa liberar o teu acesso a plataforma dos workshops, que vão complementar os teus estudos.`}
 ];
 
 const $ = id => document.getElementById(id);
