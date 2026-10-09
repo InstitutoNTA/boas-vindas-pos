@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boas-vindas Pós · CS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: seletor de curso no topo; à esquerda os dados do aluno e links do curso, à direita a mensagem pronta em formato de conversa */
+:root{
+  --bg:#eef1f4; --surface:#ffffff; --surface-2:#f6f8fa; --ink:#14212e; --muted:#5b6876; --line:#d8dee5;
+  --accent:#1f5f8b; --accent-ink:#ffffff; --chat:#e3efe6; --chat-line:#c7dccd; --warn:#a4570a; --ok:#1d7a46;
+  --c1:#2a6fdb; --c2:#b0372e; --c3:#0e7f8c; --c4:#7a4fc2;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Figtree", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f161d; --surface:#17212b; --surface-2:#1d2935; --ink:#e6edf3; --muted:#9aa8b6; --line:#2b3a48;
+  --accent:#6fb0e0; --accent-ink:#0b1620; --chat:#1d3326; --chat-line:#2c4a37; --warn:#e6a35a; --ok:#5fcf8e;
+  --c1:#7aa7ff; --c2:#f08479; --c3:#4fc6d3; --c4:#b79bf0; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f161d; --surface:#17212b; --surface-2:#1d2935; --ink:#e6edf3; --muted:#9aa8b6; --line:#2b3a48;
+  --accent:#6fb0e0; --accent-ink:#0b1620; --chat:#1d3326; --chat-line:#2c4a37; --warn:#e6a35a; --ok:#5fcf8e;
+  --c1:#7aa7ff; --c2:#f08479; --c3:#4fc6d3; --c4:#b79bf0; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1160px;margin:0 auto;padding-inline:20px;padding-block:28px 48px;display:grid;gap:24px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+h1{font-family:var(--display);font-size:clamp(1.6rem,3.2vw,2.2rem);line-height:1.1;margin:0;text-wrap:balance}
+.sub{color:var(--muted);margin:6px 0 0;max-width:62ch}
+.clock{font-family:var(--mono);font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+
+.courses{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:860px){.courses{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.course{--c:var(--c1);text-align:left;cursor:pointer;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:4px;font:inherit;transition:border-color .15s, box-shadow .15s}
+.course:hover{border-color:var(--c)}
+.course:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+.course[aria-selected="true"]{border-color:var(--c);box-shadow:inset 0 -3px 0 var(--c)}
+.course .tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--c);font-weight:500}
+.course .name{font-weight:600;line-height:1.25}
+
+.main{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:20px;align-items:start}
+@media (max-width:900px){.main{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:16px;min-width:0}
+.panel h2{font-family:var(--display);font-size:1.05rem;margin:0}
+.label{font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.field{display:grid;gap:6px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:480px){.row{grid-template-columns:1fr}}
+input,select{font:inherit;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:9px 11px;width:100%}
+input:focus,select:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
+.hint{font-size:.8rem;color:var(--muted)}
+
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.step{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2)}
+.step .n{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--cur);color:var(--surface);font-weight:600;font-size:.85rem}
+.step .t{font-weight:600;font-size:.92rem}
+.step .u{font-family:var(--mono);font-size:.74rem;color:var(--muted);overflow-wrap:anywhere}
+.mini{font:inherit;font-size:.78rem;font-weight:600;padding:6px 10px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;white-space:nowrap}
+.mini:hover{border-color:var(--accent);color:var(--accent)}
+.mini.done{color:var(--ok);border-color:var(--ok)}
+
+.chat{background:var(--surface-2);border-radius:10px;padding:16px;border:1px solid var(--line)}
+.bubble{background:var(--chat);border:1px solid var(--chat-line);border-radius:12px 12px 4px 12px;padding:14px 16px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:.92rem;line-height:1.55;max-height:520px;overflow:auto}
+.bubble a{color:var(--accent)}
+.bubble mark{background:transparent;color:var(--warn);font-weight:600;border-bottom:1px dashed var(--warn)}
+.bubble b{font-weight:600}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{font:inherit;font-weight:600;padding:11px 16px;border-radius:8px;border:1px solid transparent;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn:hover{filter:brightness(1.07)}
+.btn:focus-visible,.mini:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.status{font-size:.85rem;color:var(--muted);min-height:1.3em}
+.status.ok{color:var(--ok)} .status.warn{color:var(--warn)}
+.meta{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:.75rem;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.chip.on{border-color:var(--cur);color:var(--cur)}
+textarea.fallback{position:absolute;left:-9999px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Boas-vindas da Pós</h1>
+      <p class="sub">Escolha o curso, digite o nome do aluno e envie a mensagem de onboarding pronta. A saudação acompanha o horário.</p>
+    </div>
+    <div class="clock" id="clock"></div>
+  </header>
+
+  <div class="courses" role="tablist" aria-label="Cursos" id="courses"></div>
+
+  <div class="main">
+    <section class="panel" aria-labelledby="h-aluno">
+      <h2 id="h-aluno">Dados do aluno</h2>
+      <div class="field">
+        <label class="label" for="nome">Nome do aluno</label>
+        <input id="nome" type="text" placeholder="Ex.: Wilson" autocomplete="off">
+      </div>
+      <div class="row">
+        <div class="field">
+          <label class="label" for="saud">Saudação</label>
+          <select id="saud">
+            <option value="auto">Automática (pelo horário)</option>
+            <option>Bom dia</option><option>Boa tarde</option><option>Boa noite</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label" for="tel">WhatsApp (opcional)</label>
+          <input id="tel" type="tel" inputmode="numeric" placeholder="DDD + número">
+        </div>
+      </div>
+      <p class="hint">Sem telefone, o WhatsApp abre para você escolher o contato.</p>
+
+      <h2>Os 4 passos de <span id="curName"></span></h2>
+      <ol class="steps" id="steps"></ol>
+    </section>
+
+    <section class="panel" aria-labelledby="h-msg">
+      <div class="actions" style="justify-content:space-between">
+        <h2 id="h-msg">Mensagem pronta</h2>
+        <div class="meta" id="meta"></div>
+      </div>
+      <div class="chat"><div class="bubble" id="preview"></div></div>
+      <div class="actions">
+        <button class="btn primary" id="copy" type="button">Copiar mensagem</button>
+        <a class="btn ghost" id="wa" href="#" target="_blank" rel="noopener">Abrir no WhatsApp</a>
+      </div>
+      <div class="status" id="status" role="status"></div>
+    </section>
+  </div>
+</div>
+
+<script>
+const PLATAFORMA = "https://infoprod.platosedu.io/v2/lms/login";
+const DOCS = (curso, ava) => `Para efetivar sua matrícula, o próximo passo é enviar sua documentação.
+Na página inicial da plataforma${ava ? " AVA" : ""}, acesse ${ava ? "o seu curso em" : "o curso"} ${curso} → Acessar o Curso → Enviar Documentos.
+Enquanto os documentos estiverem em análise, pode aparecer uma janela informando que há documentos pendentes.
+Basta fechá-la e seguir normalmente, pois você pode acessar a plataforma e assistir às aulas durante todo o período de análise.
+Assim que a análise da documentação for concluída e os documentos forem aprovados, essa mensagem de documentos pendentes deixará de aparecer automaticamente.`;
+
+const COURSES = [
+  { id:"dados", tag:"Pós · Dados", nome:"Engenharia de Dados e IA", color:"--c1", workshops:true,
+    links:[
+      {t:"Formulário de Inscrição", u:"https://forms.office.com/r/40dh5upSCk"},
+      {t:"Comunidade da Turma", u:"https://chat.whatsapp.com/JYIQx1FQqzI9RArRjYl4Ip"},
+      {t:"Comunidade de Inglês", u:"https://chat.whatsapp.com/E9bqfcZDQLtDq6W3DEZiNB"},
+      {t:"Plataforma de Estudos", u:PLATAFORMA}],
+    msg:(s,n)=>`${s} ${n}, tudo bem?
+
+Seja muito bem-vindo!
+
+Sou o Junior do time de suporte do curso de Engenharia de Dados e Inteligência Artificial! E serei seu ponto de contato durante todo o processo de onboarding.
+
+Estou aqui para garantir que você tenha a melhor experiência possível.
+
+Para que você tenha acesso completo ao curso e a todos os seus benefícios, preciso que você complete 4 passos rápidos logo abaixo. Todo o processo é simples!
+
+1 - Preencha o Formulário de Inscrição:
+Acesse aqui: https://forms.office.com/r/40dh5upSCk
+
+2 - Entre nas Comunidades Oficiais da Turma:
+Comunidade da Turma: https://chat.whatsapp.com/JYIQx1FQqzI9RArRjYl4Ip
+Comunidade de Inglês: https://chat.whatsapp.com/E9bqfcZDQLtDq6W3DEZiNB
+
+3 - Acesse a Plataforma de Estudos:
+Acesse aqui: ${PLATAFORMA}
+
+4 - Envio dos Documentos:
+${DOCS("Engenharia de Dados e Inteligência Artificial")}
+
+Me avise assim que concluir as etapas, para que eu possa liberar o teu acesso a plataforma dos workshops, que vão complementar os teus estudos.`},
+  { id:"ciber", tag:"Pós · Segurança", nome:"Defesa Cibernética com IA Generativa", color:"--c2", workshops:false,
+    links:[
+      {t:"Formulário de Inscrição", u:"https://forms.cloud.microsoft/r/BPzsVeUG6x"},
+      {t:"Comunidade da Turma", u:"https://chat.whatsapp.com/E4ZezOI7G6CD2qqWJWex41"},
+      {t:"Plataforma de Estudos", u:PLATAFORMA}],
+    msg:(s,n)=>`${s} ${n}, tudo bem?
+
+Seja muito bem-vindo à sua Pós-Graduação em Defesa Cibernética com Inteligência Artificial Generativa Aplicada!
+
+Meu nome é Junior e serei o seu ponto de contato durante todo o processo de onboarding.
+Estou aqui para garantir que você tenha a melhor experiência possível.
+
+Para que você tenha acesso completo ao curso e a todos os seus benefícios, preciso que você complete 4 passos rápidos logo abaixo. Todo o processo é simples!
+
+1 - Preencha o Formulário de Inscrição:
+Acesse aqui: https://forms.cloud.microsoft/r/BPzsVeUG6x
+
+2 - Entre na Comunidade Oficial da Turma:
+Acesse aqui: https://chat.whatsapp.com/E4ZezOI7G6CD2qqWJWex41
+
+3 - Acesse a Plataforma de Estudos:
+Acesse aqui: ${PLATAFORMA}
+
+4 - Envio dos Documentos:
+${DOCS("Defesa Cibernética com Inteligência Artificial Generativa Aplicada")}
+
+Me avise assim que concluir todas essas etapas.`},
+  { id:"azure", tag:"Pós · Cloud", nome:"Arquitetura Avançada de Cloud com Azure", color:"--c3", workshops:false,
+    links:[
+      {t:"Formulário de Inscrição", u:"https://forms.office.com/r/b5ni7yszc5"},
+      {t:"Comunidade da Turma", u:"https://chat.whatsapp.com/H9hFmNYVVEa6kXCQTAcjea"},
+      {t:"Plataforma de Estudos", u:PLATAFORMA}],
+    msg:(s,n)=>`${s} ${n}, tudo bem?
+
+Seja muito bem-vindo à sua nova jornada na Pós-Graduação em Arquitetura Avançada de Cloud com Azure!
+
+Meu nome é Junior e serei o seu ponto de contato durante todo o processo de onboarding.
+Estou aqui para garantir que você tenha a melhor experiência possível.
+
+Para que você tenha acesso completo ao curso e a todos os seus benefícios, preciso que você complete 4 passos rápidos logo abaixo. Todo o processo é simples!
+
+1 - Preencha o Formulário de Inscrição:
+Acesse aqui: https://forms.office.com/r/b5ni7yszc5
+
+2 - Entre na Comunidade Oficial da Turma:
+Acesse aqui: https://chat.whatsapp.com/H9hFmNYVVEa6kXCQTAcjea
+
+3 - Acesse a Plataforma de Estudos:
+Acesse aqui: ${PLATAFORMA}
+
+4 - Envio dos Documentos
+${DOCS("Arquitetura Avançada de Cloud com Azure", true)}
+
+Só me avise assim que concluir todas as etapas!`},
+  { id:"negocios", tag:"Pós · Negócios", nome:"IA Aplicada a Negócios", color:"--c4", workshops:true,
+    links:[
+      {t:"Formulário de Inscrição", u:"https://forms.office.com/r/pDkiTg4ndJ"},
+      {t:"Comunidade da Turma", u:"https://chat.whatsapp.com/F1SuG0DRA5HAq6Cji1bD1j"},
+      {t:"Plataforma (AVA/COSMOS)", u:PLATAFORMA}],
+    msg:(s,n)=>`${s} ${n}, como você está?
+
+Sou o Junior, responsável pelo seu acompanhamento no curso de Inteligência Artificial Aplicada a Negócios.
+
+Que alegria ter você com a gente! Vamos começar o seu onboarding agora mesmo.
+
+Para garantir que você aproveite tudo desde o primeiro dia, preciso que você complete 4 passos:
+
+*PASSO 1 - Formulário de Inscrição*
+https://forms.office.com/r/pDkiTg4ndJ
+
+*PASSO 2 - Comunidade Oficial da Turma*
+https://chat.whatsapp.com/F1SuG0DRA5HAq6Cji1bD1j
+
+*PASSO 3 - Plataforma de Estudos (AVA/COSMOS)*
+${PLATAFORMA}
+
+*PASSO 4 - Envio dos Documentos*
+${DOCS("Inteligência Artificial Aplicada a Negócios")}
+
+Me avise assim que concluir todas essas etapas, para que eu possa liberar o teu acesso a plataforma dos workshops, que vão complementar os teus estudos.`}
+];
+
+const $ = id => document.getElementById(id);
+let cur = COURSES[0];
+try { const saved = localStorage.getItem("cs-onb-curso"); const f = COURSES.find(c=>c.id===saved); if (f) cur = f; } catch(e){}
+
+function greetingAuto(){ const h = new Date().getHours(); return h<12 ? "Bom dia" : h<18 ? "Boa tarde" : "Boa noite"; }
+function greeting(){ const v = $("saud").value; return v==="auto" ? greetingAuto() : v; }
+function nome(){ return $("nome").value.trim(); }
+function cap(s){ return s.replace(/\b\p{L}/gu, m=>m.toUpperCase()); }
+function finalMsg(){ return cur.msg(greeting(), cap(nome()) || "[Nome do aluno]"); }
+function esc(s){ return s.replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+function renderCourses(){
+  $("courses").innerHTML = COURSES.map(c=>`<button class="course" role="tab" type="button" id="tab-${c.id}" data-id="${c.id}" style="--c:var(${c.color})" aria-selected="${c===cur}"><span class="tag">${c.tag}</span><span class="name">${c.nome}</span></button>`).join("");
+  $("courses").querySelectorAll(".course").forEach(b=>b.onclick=()=>{ cur = COURSES.find(c=>c.id===b.dataset.id); try{localStorage.setItem("cs-onb-curso",cur.id)}catch(e){} render(); });
+}
+
+function renderSteps(){
+  const L = cur.links;
+  const forms = L[0], comms = L.filter(l=>l.u.includes("chat.whatsapp")), plat = L[L.length-1];
+  const items = [
+    {t:"Formulário de Inscrição", links:[forms]},
+    {t: comms.length>1 ? "Comunidades Oficiais" : "Comunidade da Turma", links:comms},
+    {t:plat.t, links:[plat]},
+    {t:"Envio dos Documentos", note:"Plataforma → Acessar o Curso → Enviar Documentos"}
+  ];
+  $("steps").innerHTML = items.map((it,i)=>`<li class="step"><span class="n">${i+1}</span><div style="min-width:0"><div class="t">${it.t}</div>${
+    it.links ? it.links.map(l=>`<div class="u">${comms.length>1&&i===1? l.t+": ":""}<a href="${l.u}" target="_blank" rel="noopener" style="color:inherit">${l.u.replace("https://","")}</a></div>`).join("") : `<div class="u">${it.note}</div>`
+  }</div>${it.links ? `<button class="mini" type="button" data-copy="${esc(it.links.map(l=>l.u).join("\n"))}">Copiar</button>` : ""}</li>`).join("");
+  $("steps").querySelectorAll("[data-copy]").forEach(b=>b.onclick=()=>copy(b.dataset.copy, b));
+}
+
+function renderPreview(){
+  const n = nome();
+  let html = esc(cur.msg(greeting(), n ? cap(n) : "\u0000"));
+  html = html.replace("\u0000", "<mark>[Nome do aluno]</mark>")
+             .replace(/\*([^*\n]+)\*/g, "<b>$1</b>")
+             .replace(/(https:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+  $("preview").innerHTML = html;
+  const tel = $("tel").value.replace(/\D/g,"");
+  const num = tel ? (tel.length<=11 ? "55"+tel : tel) : "";
+  $("wa").href = `https://wa.me/${num}?text=${encodeURIComponent(finalMsg())}`;
+  $("meta").innerHTML = `<span class="chip on">${greeting()}</span><span class="chip ${cur.workshops?"on":""}">${cur.workshops?"Libera workshops":"Sem workshops"}</span>`;
+}
+
+function render(){
+  document.documentElement.style.setProperty("--cur", `var(${cur.color})`);
+  $("curName").textContent = cur.nome;
+  renderCourses(); renderSteps(); renderPreview(); setStatus("");
+}
+
+function setStatus(t, k){ const s=$("status"); s.textContent=t; s.className="status "+(k||""); }
+
+async function copy(text, btn){
+  try { await navigator.clipboard.writeText(text); }
+  catch(e){
+    const ta=document.createElement("textarea"); ta.className="fallback"; ta.value=text; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); }catch(_){} ta.remove();
+  }
+  if(btn){ const o=btn.textContent; btn.textContent="Copiado"; btn.classList.add("done"); setTimeout(()=>{btn.textContent=o;btn.classList.remove("done")},1500); }
+}
+
+$("copy").onclick = async ()=>{
+  await copy(finalMsg());
+  if(!nome()) setStatus("Mensagem copiada, mas sem o nome do aluno. Preencha o nome antes de enviar.", "warn");
+  else setStatus(`Mensagem de ${cur.nome} copiada para ${cap(nome())}.`, "ok");
+};
+$("wa").addEventListener("click", e=>{ if(!nome()){ e.preventDefault(); setStatus("Digite o nome do aluno antes de abrir o WhatsApp.","warn"); $("nome").focus(); }});
+["nome","saud","tel"].forEach(id=>$(id).addEventListener("input", ()=>{ renderPreview(); setStatus(""); }));
+
+function tick(){ const d=new Date(); $("clock").textContent = d.toLocaleDateString("pt-BR",{weekday:"long",day:"2-digit",month:"2-digit"}) + " · " + d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}) + " · " + greetingAuto(); }
+tick(); setInterval(()=>{ tick(); if($("saud").value==="auto") renderPreview(); }, 60000);
+render();
+</script>
+
+</body>
+</html>
