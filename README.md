@@ -4,6 +4,19 @@ Ferramenta do time de CS para enviar a mensagem de onboarding aos alunos novos d
 
 **Acesse o site:** https://institutonta.github.io/boas-vindas-pos/
 
+## Pendências e métricas
+
+O acompanhamento de cada aluno (checklist de contrato, formulários e workshop) e as métricas do time ficam no painel do Claude:
+
+**Painel:** https://claude.ai/artifact/RgutxohXmkHwQiF7Vo1hYS
+
+- Envie a mensagem pelo menu **Enviar mensagens** do painel: o aluno entra sozinho em **Pendências**, com nome e telefone.
+- Marque as etapas conforme o aluno conclui. O botão **Arquivar** só libera quando todas estiverem feitas.
+- O menu **Painel** mostra formulários enviados, contratos e formulários pendentes, workshops liberados e alunos parados há 3 dias ou mais.
+- Para acessar, peça ao Otacílio para compartilhar o painel com você como **Colaborador**.
+
+Os envios feitos por este site do GitHub não entram em Pendências automaticamente.
+
 ## Cursos disponíveis
 
 | Curso | Libera workshops? |
