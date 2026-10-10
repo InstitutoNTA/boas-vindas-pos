@@ -6,16 +6,28 @@ Ferramenta do time de CS para enviar a mensagem de onboarding aos alunos novos d
 
 ## Pendências e métricas
 
-O acompanhamento de cada aluno (checklist de contrato, formulários e workshop) e as métricas do time ficam no painel do Claude:
+O acompanhamento de cada aluno (checklist de onboarding de cada curso) e as métricas do time ficam no painel do Claude:
 
 **Painel:** https://claude.ai/artifact/RgutxohXmkHwQiF7Vo1hYS
 
 - Envie a mensagem pelo menu **Enviar mensagens** do painel: o aluno entra sozinho em **Pendências**, com nome e telefone.
 - Marque as etapas conforme o aluno conclui. O botão **Arquivar** só libera quando todas estiverem feitas.
-- O menu **Painel** mostra formulários enviados, contratos e formulários pendentes, workshops liberados e alunos parados há 3 dias ou mais.
+- O menu **Painel** mostra formulários enviados, contratos e formulários pendentes, alunos nas comunidades de alunos e de inglês, workshops liberados e alunos parados há 3 dias ou mais, com gráficos e percentuais.
 - Para acessar, peça ao Otacílio para compartilhar o painel com você como **Colaborador**.
 
 Os envios feitos por este site do GitHub não entram em Pendências automaticamente.
+
+### Checklist de onboarding por curso
+
+| Etapa | Engenharia | Defesa Cibernética | Arquitetura | IA Negócios | MBA Direito |
+|---|:-:|:-:|:-:|:-:|:-:|
+| Aceitar contrato | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Preencher os formulários | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Entrar na comunidade de alunos | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Entrar na comunidade de inglês | ✓ | — | ✓ | — | — |
+| Acessar a plataforma (AVA/Cosmos) | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Subir a documentação | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Liberar workshop | ✓ | — | — | ✓ | ✓ |
 
 ## Cursos disponíveis
 
