@@ -72,6 +72,11 @@ input:focus,select:focus{outline:2px solid var(--accent);outline-offset:0;border
 .mini.done{color:var(--ok);border-color:var(--ok)}
 
 .chat{background:var(--surface-2);border-radius:10px;padding:16px;border:1px solid var(--line)}
+.msgs{display:grid;gap:14px}
+.msg{display:grid;gap:8px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.msg:last-child{border-bottom:0;padding-bottom:0}
+.msg-n{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--cur);font-weight:500;display:block}
+.msg .bubble{max-height:300px}
 .bubble{background:var(--chat);border:1px solid var(--chat-line);border-radius:12px 12px 4px 12px;padding:14px 16px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:.92rem;line-height:1.55;max-height:520px;overflow:auto}
 .bubble a{color:var(--accent)}
 .bubble mark{background:transparent;color:var(--warn);font-weight:600;border-bottom:1px dashed var(--warn)}
@@ -96,7 +101,7 @@ textarea.fallback{position:absolute;left:-9999px}
   <header>
     <div>
       <h1>Boas-vindas da Pós</h1>
-      <p class="sub">Escolha o curso, digite o nome do aluno e envie a mensagem de onboarding pronta. A saudação acompanha o horário.</p>
+      <p class="sub">Consulte as 4 mensagens de onboarding e os links de cada curso. O envio é feito pelo painel.</p>
     </div>
     <div class="top-right">
       <a class="panel-link" href="https://claude.ai/artifact/RgutxohXmkHwQiF7Vo1hYS#pendencias" target="_blank" rel="noopener">Pendências e métricas →</a>
@@ -113,20 +118,7 @@ textarea.fallback{position:absolute;left:-9999px}
         <label class="label" for="nome">Nome do aluno</label>
         <input id="nome" type="text" placeholder="Ex.: Wilson" autocomplete="off">
       </div>
-      <div class="row">
-        <div class="field">
-          <label class="label" for="saud">Saudação</label>
-          <select id="saud">
-            <option value="auto">Automática (pelo horário)</option>
-            <option>Bom dia</option><option>Boa tarde</option><option>Boa noite</option>
-          </select>
-        </div>
-        <div class="field">
-          <label class="label" for="tel">WhatsApp (opcional)</label>
-          <input id="tel" type="tel" inputmode="numeric" placeholder="DDD + número">
-        </div>
-      </div>
-      <p class="hint">Sem telefone, o WhatsApp abre para você escolher o contato.</p>
+      <p class="hint">Esta página é só para consulta das mensagens. O envio para o aluno é feito pelo painel.</p>
 
       <h2>Os 4 passos de <span id="curName"></span></h2>
       <ol class="steps" id="steps"></ol>
@@ -134,16 +126,20 @@ textarea.fallback{position:absolute;left:-9999px}
 
     <section class="panel" aria-labelledby="h-msg">
       <div class="actions" style="justify-content:space-between">
-        <h2 id="h-msg">Mensagem pronta</h2>
+        <h2 id="h-msg">Mensagens do curso</h2>
         <div class="meta" id="meta"></div>
       </div>
-      <div class="chat"><div class="bubble" id="preview"></div></div>
+      <div class="msgs">
+        <article class="msg"><div><span class="msg-n">Mensagem 1 · Boas-vindas</span><p class="hint">Envie primeiro.</p></div><div class="chat"><div class="bubble" id="preview"></div></div></article>
+        <article class="msg"><div><span class="msg-n">Mensagem 2 · Pedido de retorno</span><p class="hint">Logo em seguida da Mensagem 1.</p></div><div class="chat"><div class="bubble" id="preview2"></div></div></article>
+        <article class="msg"><div><span class="msg-n">Mensagem 3 · Liberação de acesso</span><p class="hint">Quando o aluno responder que finalizou as etapas.</p></div><div class="chat"><div class="bubble" id="preview3"></div></div></article>
+        <article class="msg"><div><span class="msg-n">Mensagem 4 · Documentação</span><p class="hint">Na sequência da Mensagem 3.</p></div><div class="chat"><div class="bubble" id="preview4"></div></div></article>
+      </div>
       <div class="actions">
-        <button class="btn primary" id="copy" type="button">Copiar mensagem</button>
-        <a class="btn ghost" id="wa" href="#" target="_blank" rel="noopener">Abrir no WhatsApp</a>
+        <a class="btn primary" href="https://claude.ai/artifact/RgutxohXmkHwQiF7Vo1hYS#enviar" target="_blank" rel="noopener">Enviar pelo painel →</a>
       </div>
       <div class="status" id="status" role="status"></div>
-      <p class="tip-panel">Os envios feitos aqui não entram sozinhos em Pendências. Para registrar o aluno e acompanhar o checklist, envie pelo <a href="https://claude.ai/artifact/RgutxohXmkHwQiF7Vo1hYS#enviar" target="_blank" rel="noopener">painel do Claude</a>.</p>
+      <p class="tip-panel">Para o aluno entrar em Pendências com o checklist do curso, toda mensagem de boas-vindas é enviada pelo <a href="https://claude.ai/artifact/RgutxohXmkHwQiF7Vo1hYS#enviar" target="_blank" rel="noopener">painel do Claude</a>. No painel, escolha o curso, preencha nome e telefone e clique em Copiar mensagem 1 ou Abrir no WhatsApp. As mensagens 2, 3 e 4 também têm botão de copiar no painel.</p>
     </section>
   </div>
 </div>
@@ -157,7 +153,7 @@ Basta fechá-la e seguir normalmente, pois você pode acessar a plataforma e ass
 Assim que a análise da documentação for concluída e os documentos forem aprovados, essa mensagem de documentos pendentes deixará de aparecer automaticamente.`;
 
 const COURSES = [
-  { id:"dados", tag:"Pós · Dados", nome:"Engenharia de Dados e IA", color:"--c1", workshops:true,
+  { id:"dados", tag:"Pós · Dados", nome:"Engenharia de Dados e IA", color:"--c1", workshops:false,
     links:[
       {t:"Formulário de Inscrição", u:"https://forms.office.com/r/40dh5upSCk"},
       {t:"Comunidade da Turma", u:"https://chat.whatsapp.com/JYIQx1FQqzI9RArRjYl4Ip"},
@@ -241,7 +237,7 @@ Acesse aqui: ${PLATAFORMA}
 ${DOCS("Arquitetura Avançada de Cloud com Azure", true)}
 
 Só me avise assim que concluir todas as etapas!`},
-  { id:"negocios", tag:"Pós · Negócios", nome:"IA Aplicada a Negócios", color:"--c4", workshops:true,
+  { id:"negocios", tag:"Pós · Negócios", nome:"IA Aplicada a Negócios", color:"--c4", workshops:false,
     links:[
       {t:"Formulário de Inscrição", u:"https://forms.office.com/r/pDkiTg4ndJ"},
       {t:"Comunidade da Turma", u:"https://chat.whatsapp.com/F1SuG0DRA5HAq6Cji1bD1j"},
@@ -299,15 +295,117 @@ Assim que a análise da documentação for concluída e os documentos forem apro
 Me avise assim que concluir as etapas, para que eu possa liberar o teu acesso a plataforma dos workshops, que vão complementar os teus estudos.`}
 ];
 
+/* ===== Mensagens de onboarding (4 por curso) — fonte única de links ===== */
+const MSG_DATA = {
+  dados: {
+    oficial: "da Pós-Graduação em Engenharia de Dados e Inteligência Artificial",
+    form: "https://forms.office.com/r/40dh5upSCk",
+    comunidade: "https://chat.whatsapp.com/JYIQx1FQqzI9RArRjYl4Ip",
+    ingles: "https://chat.whatsapp.com/E9bqfcZDQLtDq6W3DEZiNB",
+    docNome: "o curso Engenharia de Dados e Inteligência Artificial",
+    tutorial: "", workshop: false
+  },
+  ciber: {
+    oficial: "da Pós-Graduação em Defesa Cibernética com Inteligência Artificial Generativa Aplicada",
+    form: "https://forms.cloud.microsoft/r/BPzsVeUG6x",
+    comunidade: "https://chat.whatsapp.com/E4ZezOI7G6CD2qqWJWex41",
+    ingles: "",
+    docNome: "o curso Defesa Cibernética com Inteligência Artificial Generativa Aplicada",
+    tutorial: "", workshop: false
+  },
+  azure: {
+    oficial: "da Pós-Graduação em Arquitetura Avançada de Cloud com Azure",
+    form: "https://forms.office.com/r/b5ni7yszc5",
+    comunidade: "https://chat.whatsapp.com/H9hFmNYVVEa6kXCQTAcjea",
+    ingles: "",
+    docNome: "o curso Arquitetura Avançada de Cloud com Azure",
+    tutorial: "", workshop: false
+  },
+  negocios: {
+    oficial: "da Pós-Graduação em Inteligência Artificial Aplicada a Negócios",
+    form: "https://forms.office.com/r/pDkiTg4ndJ",
+    comunidade: "https://chat.whatsapp.com/F1SuG0DRA5HAq6Cji1bD1j",
+    ingles: "",
+    docNome: "o curso Inteligência Artificial Aplicada a Negócios",
+    tutorial: "", workshop: false
+  },
+  direito: {
+    oficial: "do MBA em Inteligência Artificial aplicada ao Direito",
+    form: "https://forms.office.com/r/tg3tjNf3pk",
+    comunidade: "https://chat.whatsapp.com/IgjXKtR64XN7Lu7Q3tOfY8",
+    ingles: "",
+    docNome: "o MBA em Inteligência Artificial Aplicada ao Direito",
+    tutorial: "https://drive.google.com/file/d/1BRbpxUNxcWQScryMYNFXPLSMr5lmuLsV/view?usp=sharing",
+    workshop: true
+  }
+};
+const MSG_META = [
+  { t:"Boas-vindas", quando:"Envie primeiro. Ao copiar ou abrir no WhatsApp, o aluno entra em Pendências." },
+  { t:"Pedido de retorno", quando:"Envie logo em seguida da Mensagem 1." },
+  { t:"Liberação de acesso", quando:"Envie quando o aluno responder que finalizou as etapas." },
+  { t:"Documentação", quando:"Envie na sequência da Mensagem 3." }
+];
+function buildMsgs(cid, nome){
+  const d = MSG_DATA[cid];
+  const m1 = `Oi, ${nome}! Que alegria ter você com a gente! 🎉
+
+Sou o Junior, do time de suporte e estarei te acompanhando durante toda a sua formação.
+
+É oficial: você agora faz parte ${d.oficial}. Seja muito bem-vindo(a) a essa jornada!
+
+Para você já sair na frente, separei tudo o que precisa para começar:
+
+1️⃣ Comece pelo formulário de inscrição
+${d.form}
+
+2️⃣ Entrar na comunidade de alunos:
+${d.comunidade}
+${d.ingles ? `
+E também na comunidade de inglês:
+${d.ingles}
+` : ""}
+3️⃣ Dê uma olhadinha no seu e-mail
+Você vai receber uma mensagem de noreply@platosedu.io com o acesso ao portal do aluno. Se não aparecer na caixa de entrada, confere o spam, às vezes ela se esconde por lá. 😉
+
+👉 Não achou? Tudo bem, dá para acessar por aqui:
+https://infoprod.platosedu.io/v2/lms/login
+É só clicar em “Primeiro acesso” e digitar seu CPF (somente números, sem pontos e traço). Logo depois, chega no seu e-mail o passo a passo para criar sua senha.
+
+Lá dentro do seu ambiente do aluno, você precisará preencher alguns dados para liberar as aulas. Não leva mais que 5 minutinhos.${d.tutorial ? `
+
+Preparamos também um tutorial completinho de navegação para você poder se ambientar na plataforma: ${d.tutorial}` : ""}`;
+
+  const m2 = `Assim que finalizar as etapas me avise aqui por favor, para poder liberar os bônus.`;
+
+  const m3 = d.workshop
+? `Perfeito, obrigado pelo retorno.
+Seu acesso vitalício ao conteúdo da pós já foi liberado, e também estou liberando o acesso à plataforma com os Workshops, que são materiais extras que o especialista Thiago Azeredo traz para vocês.
+
+Os demais bônus, conforme foi informado na live, estão sendo desenvolvidos 100% atualizados para vocês, e à medida que eles forem liberando, vocês receberão um comunicado.`
+: `Perfeito, obrigado pelo retorno.
+Seu acesso vitalício ao conteúdo da pós já foi liberado.
+
+Os demais bônus, conforme foi informado na live, estão sendo desenvolvidos 100% atualizados para vocês, e à medida que eles forem liberando, vocês receberão um comunicado.`;
+
+  const m4 = `Agora precisamos concluir sua etapa de documentação que é importante para a liberação dos serviços internos, como carteirinha de estudante, NFs, declaração de matrícula, entre outros.
+
+4️⃣ Envio dos Documentos
+Para efetivar sua matrícula, o próximo passo é enviar sua documentação.
+Na página inicial da plataforma, acesse ${d.docNome} → Acessar o Curso → Enviar Documentos.
+Enquanto os documentos estiverem em análise, pode aparecer uma janela informando que há documentos pendentes.
+Basta fechá-la e seguir normalmente, pois você pode acessar a plataforma e assistir às aulas durante todo o período de análise.
+Assim que a análise da documentação for concluída e os documentos forem aprovados, essa mensagem de documentos pendentes deixará de aparecer automaticamente.`;
+
+  return [m1, m2, m3, m4];
+}
+
 const $ = id => document.getElementById(id);
 let cur = COURSES[0];
 try { const saved = localStorage.getItem("cs-onb-curso"); const f = COURSES.find(c=>c.id===saved); if (f) cur = f; } catch(e){}
 
 function greetingAuto(){ const h = new Date().getHours(); return h<12 ? "Bom dia" : h<18 ? "Boa tarde" : "Boa noite"; }
-function greeting(){ const v = $("saud").value; return v==="auto" ? greetingAuto() : v; }
 function nome(){ return $("nome").value.trim(); }
 function cap(s){ return s.replace(/\b\p{L}/gu, m=>m.toUpperCase()); }
-function finalMsg(){ return cur.msg(greeting(), cap(nome()) || "[Nome do aluno]"); }
 function esc(s){ return s.replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
 
 function renderCourses(){
@@ -332,15 +430,12 @@ function renderSteps(){
 
 function renderPreview(){
   const n = nome();
-  let html = esc(cur.msg(greeting(), n ? cap(n) : "\u0000"));
-  html = html.replace("\u0000", "<mark>[Nome do aluno]</mark>")
-             .replace(/\*([^*\n]+)\*/g, "<b>$1</b>")
-             .replace(/(https:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
-  $("preview").innerHTML = html;
-  const tel = $("tel").value.replace(/\D/g,"");
-  const num = tel ? (tel.length<=11 ? "55"+tel : tel) : "";
-  $("wa").href = `https://wa.me/${num}?text=${encodeURIComponent(finalMsg())}`;
-  $("meta").innerHTML = `<span class="chip on">${greeting()}</span><span class="chip ${cur.workshops?"on":""}">${cur.workshops?"Libera workshops":"Sem workshops"}</span>`;
+  const ms = buildMsgs(cur.id, n ? cap(n) : "\u0000");
+  ["preview","preview2","preview3","preview4"].forEach((id,i)=>{
+    $(id).innerHTML = esc(ms[i]).replace("\u0000", "<mark>[NOME]</mark>")
+      .replace(/(https:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+  });
+  $("meta").innerHTML = `<span class="chip ${cur.workshops?"on":""}">${cur.workshops?"Libera workshops":"Sem workshops"}</span>`;
 }
 
 function render(){
@@ -360,16 +455,10 @@ async function copy(text, btn){
   if(btn){ const o=btn.textContent; btn.textContent="Copiado"; btn.classList.add("done"); setTimeout(()=>{btn.textContent=o;btn.classList.remove("done")},1500); }
 }
 
-$("copy").onclick = async ()=>{
-  await copy(finalMsg());
-  if(!nome()) setStatus("Mensagem copiada, mas sem o nome do aluno. Preencha o nome antes de enviar.", "warn");
-  else setStatus(`Mensagem de ${cur.nome} copiada para ${cap(nome())}.`, "ok");
-};
-$("wa").addEventListener("click", e=>{ if(!nome()){ e.preventDefault(); setStatus("Digite o nome do aluno antes de abrir o WhatsApp.","warn"); $("nome").focus(); }});
-["nome","saud","tel"].forEach(id=>$(id).addEventListener("input", ()=>{ renderPreview(); setStatus(""); }));
+["nome"].forEach(id=>$(id).addEventListener("input", ()=>{ renderPreview(); setStatus(""); }));
 
 function tick(){ const d=new Date(); $("clock").textContent = d.toLocaleDateString("pt-BR",{weekday:"long",day:"2-digit",month:"2-digit"}) + " · " + d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}) + " · " + greetingAuto(); }
-tick(); setInterval(()=>{ tick(); if($("saud").value==="auto") renderPreview(); }, 60000);
+tick(); setInterval(tick, 60000);
 render();
 </script>
 

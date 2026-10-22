@@ -15,7 +15,7 @@ O acompanhamento de cada aluno (checklist de onboarding de cada curso) e as mét
 - O menu **Painel** mostra formulários enviados, contratos e formulários pendentes, alunos nas comunidades de alunos e de inglês, workshops liberados e alunos parados há 3 dias ou mais, com gráficos e percentuais.
 - Para acessar, peça ao Otacílio para compartilhar o painel com você como **Colaborador**.
 
-Os envios feitos por este site do GitHub não entram em Pendências automaticamente.
+Este site do GitHub não envia mensagens: o botão **Enviar pelo painel** leva direto para o painel.
 
 ### Checklist de onboarding por curso
 
@@ -24,29 +24,33 @@ Os envios feitos por este site do GitHub não entram em Pendências automaticame
 | Aceitar contrato | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Preencher os formulários | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Entrar na comunidade de alunos | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Entrar na comunidade de inglês | ✓ | — | ✓ | — | — |
+| Entrar na comunidade de inglês | ✓ | — | — | — | — |
 | Acessar a plataforma (AVA/Cosmos) | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Subir a documentação | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Liberar workshop | ✓ | — | — | ✓ | ✓ |
+| Liberar workshop | — | — | — | — | ✓ |
+
+### Sequência de mensagens (todos os cursos)
+
+1. **Boas-vindas:** formulário de inscrição, comunidade de alunos (e de inglês em Engenharia), acesso à plataforma. No MBA, inclui também o tutorial de navegação.
+2. **Pedido de retorno:** enviada logo depois da 1.
+3. **Liberação de acesso:** enviada quando o aluno avisa que finalizou. Só no MBA ela libera os Workshops.
+4. **Documentação:** enviada na sequência da 3.
 
 ## Cursos disponíveis
 
 | Curso | Libera workshops? |
 |---|---|
-| Engenharia de Dados e Inteligência Artificial | Sim |
+| Engenharia de Dados e Inteligência Artificial | Não |
 | Defesa Cibernética com IA Generativa Aplicada | Não |
 | Arquitetura Avançada de Cloud com Azure | Não |
-| Inteligência Artificial Aplicada a Negócios | Sim |
+| Inteligência Artificial Aplicada a Negócios | Não |
 | MBA em Inteligência Artificial Aplicada ao Direito | Sim |
 
-## Como usar
+## Como usar este site
 
-1. Escolha o curso do aluno no topo da página.
-2. Digite o nome do aluno.
-3. Confira a saudação. Ela muda sozinha conforme o horário (Bom dia, Boa tarde, Boa noite), mas pode ser escolhida manualmente.
-4. Clique em **Copiar mensagem** e cole no WhatsApp, ou preencha o telefone e clique em **Abrir no WhatsApp**.
+Este site é só para **consultar** as mensagens e os links de cada curso. Todo envio de boas-vindas é feito pelo **painel do Claude**, para o aluno entrar em Pendências.
 
-Cada um dos 4 passos tem um botão **Copiar** para enviar só aquele link, quando o aluno pedir.
+Cada um dos 4 passos tem um botão **Copiar** para mandar só aquele link, quando um aluno já cadastrado pedir.
 
 ## Como atualizar um link ou mensagem
 
